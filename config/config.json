@@ -9,10 +9,19 @@
           "manifest": "./src/webparts/helloWorld/HelloWorldWebPart.manifest.json"
         }
       ]
+    },
+    "react-customwpproperty-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactCustomwpproperty/ReactCustomwppropertyWebPart.js",
+          "manifest": "./src/webparts/reactCustomwpproperty/ReactCustomwppropertyWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "HelloWorldWebPartStrings": "lib/webparts/helloWorld/loc/{locale}.js"
+    "HelloWorldWebPartStrings": "lib/webparts/helloWorld/loc/{locale}.js",
+    "ReactCustomwppropertyWebPartStrings": "lib/webparts/reactCustomwpproperty/loc/{locale}.js"
   }
 }

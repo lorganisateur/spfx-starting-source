@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "403d3e6a-4d38-4a38-80e9-14a28929c18e",
-  "alias": "HelloWorldWebPart",
+  "id": "dddeb748-1713-41ad-b3c3-64519182315a",
+  "alias": "ReactCustomwppropertyWebPart",
   "componentType": "WebPart",
 
   // The "*" signifies that the version should be taken from the package.json
@@ -17,12 +17,12 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
     "group": { "default": "Other" },
-    "title": { "default": "HelloWorld" },
-    "description": { "default": "HelloWorld description" },
+    "title": { "default": "react-customwpproperty" },
+    "description": { "default": "react-customwpproperty description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "HelloWorld",
-      "listName": ""
+      "listName": "",
+      "item": ""
     }
   }]
 }

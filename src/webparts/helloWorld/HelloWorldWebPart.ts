@@ -25,6 +25,7 @@ import {
 
 export interface IHelloWorldWebPartProps {
   description: string;
+  listName: string;
   test: string;
   test1: boolean;
   test2: string;
@@ -106,6 +107,43 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
     return Version.parse('1.0');
   }
 
+  private validateDescription(value: string): string {
+    if (value === null ||
+      value.trim().length === 0) {
+      return 'Provide a description';
+    }
+
+    if (value.length > 40) {
+      return 'Description should not be longer than 40 characters';
+    }
+
+    return '';
+  }
+
+  private async validateListName(value: string): Promise<string> {
+    if (value === null || value.length === 0) {
+      return "Provide the list name";
+    }
+
+    try {
+      let response = await this.context.spHttpClient.get(
+        this.context.pageContext.web.absoluteUrl +
+          `/_api/web/lists/getByTitle('${escape(value)}')?$select=Id`,
+        SPHttpClient.configurations.v1
+      );
+
+      if (response.ok) {
+        return "";
+      } else if (response.status === 404) {
+        return `List '${escape(value)}' doesn't exist in the current site`;
+      } else {
+        return `Error: ${response.statusText}. Please try again`;
+      }
+    } catch (error) {
+      return error.message;
+    }
+  }
+
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -118,7 +156,13 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
               groupName: strings.BasicGroupName,
               groupFields: [
               PropertyPaneTextField('description', {
-                label: 'Description'
+                label: 'Description',
+                onGetErrorMessage: this.validateDescription.bind(this)
+              }),
+              PropertyPaneTextField('listName', {
+                label: strings.ListNameFieldLabel,
+                onGetErrorMessage: this.validateListName.bind(this),
+                deferredValidationTime: 500
               }),
               PropertyPaneTextField('test', {
                 label: 'Multi-line Text Field',
